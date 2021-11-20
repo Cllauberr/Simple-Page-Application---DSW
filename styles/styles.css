@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: auto;
+}
+
+:root {
+    --primary-color: #965579;
+    --secondary-color: #6b6368;
+    --thirdcolor: #4a4a7c;
+}
+
+#header {
+    margin-top: 0;
+    background-color: #2d2d2d;
+    text-align: center;
+}
+
+#header a {
+    color: whitesmoke;
+}
+
+#navBar #string {
+    width: auto;
+    display: inline;
+    background: #2d2d2d;
+    align-items: center;
+}
+
+#navBar #stringField {
+    margin-left: 20px;
+    width: 200px;
+    height: 30px;
+}
+
+#navBar #stringField:hover {
+    transition: ease-in 300ms;
+    margin-left: 20px;
+    width: 200px;
+    height: 30px;
+    background-color: #dac4c4;
+    outline: none;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn {
+    transition: ease-in 100ms;
+    width: 100px;
+    height: 35px;
+    background-color: rgb(197, 197, 197);
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn:hover {
+    transition: ease-out 100ms;
+    cursor: pointer;
+    background-color: rgb(23, 68, 43);
+    border-radius: 5px;
+    outline: none;
+}
+
+#navBar a {
+    font-size: 20px;
+    color: whitesmoke;
+    text-decoration: none;
+    padding: 20px;
+}
+
+#navBar #icons {
+    position: absolute;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--primary-color);
+}
+
+.containericon {
+    background: #2d2d2d;
+    min-height: 100vh;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+footer {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: #2d2d2d;
+    color: whitesmoke;
+    font-family: 'Times New Roman', Times, serif;
+    position: fixed;
+    bottom: 0;
+}
