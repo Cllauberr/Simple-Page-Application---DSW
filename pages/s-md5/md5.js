@@ -1,72 +1,61 @@
 export default () => {
     const content = document.createElement("section");
-    content.classList.add('content');
 
-    const stringHash = localStorage.getItem('stringHash');
-    const stringUpperCase = String(stringHash).toUpperCase();
-    const stringLowerCase = String(stringHash).toLowerCase();
-    const stringProperCase = toProperCase(stringHash);
-    const stringCapitalCase = toCapitalCase(stringHash);
-    const encodedMd5 = 'Não codificada'
+    content.classList.add("content");
 
-    function toCapitalCase(string) {
-        return String(string).charAt(0).toUpperCase() + String(string).slice(1);
-    }
-    
-    function toProperCase(string) {
-        let stringSplit = String(string).split(' ');
-        let stringProperCase = "";
+    const parameterString = localStorage.getItem("parameterString");
+    const encodedString = md5(parameterString);
+    var localString = "";
 
-        stringSplit.forEach(string => {
-            let stringProper = String(string).charAt(0).toUpperCase() + String(string).slice(1);
-            stringProperCase += stringProper + " ";
-        });
-
-        return stringProperCase;
+    function converterString(tipo) {
+        let string = encodedString;
+        switch (tipo) {
+            case "uppercase":
+                localString = string.toUpperCase();
+                break;
+            case "lowercase":
+                localString = string.toLowerCase();
+                break;
+            case "captalize":
+                localString = string.charAt(0).toUpperCase() + string.slice(1);
+                break;
+            case "propercase":
+                let stringMontada = "";
+                let aux = string.split(" ");
+                for (let str of aux) {
+                    stringMontada =
+                        stringMontada + " " + str.charAt(0).toUpperCase() + str.slice(1);
+                }
+                localString = stringMontada;
+                break;
+        }
     }
 
     content.innerHTML = `
-    <div>
-    <Label for="fieldStringMd5">MD5 Encode:</Label>
-        <input class="fieldString" name="fieldString" id="fieldStringEncoded" type="text" readonly value="${encodedMd5}">
-        <input class="btn btnEncode" name="btnEncode" id="btnEncode" type="button" value="Codificar">
-    </div>
+      <div>
+      <Label>MD5</Label>
+      <input class="fieldString" name="fieldString" id="fieldStringHash" type="text" readonly value="${encodedString}">
+      </div>
+      <button id="uppercase">CAIXA ALTA</button>
+      <button id="lowercase">CAIXA BAIXA</button>
+      <button id="captalize">CAPTALIZAR</button>
+      <button id="propercase">TITLE CASE</button>
+      <div>
+          <Label>String convertida:</Label>
+          <input class="fieldString" id="string-convertida" type="text" readonly">
+      </div>
+      `;
 
-    <div>
-        <Label for="fieldString">String:</Label>
-        <input class="fieldString" name="fieldString" id="fieldStringHash" type="text" readonly value="${stringHash}">
-    </div>
+    const btnEncode = content.querySelectorAll(
+        "#uppercase, #lowercase, #captalize, #propercase"
+    );
 
-    <div>
-        <Label for="fieldStringUC">String Upper Case:</Label>
-        <input  class="fieldString" name="fieldString" id="fieldStringUpperCase" type="text" readonly value="${stringUpperCase}">
-    </div>
-    <div>
-        <Label for="fieldStringLC">String Lower Case:</Label>
-        <input  class="fieldString" name="fieldString" id="fieldStringLowerCase" type="text" readonly value="${stringLowerCase}">
-    </div>
-    <div>
-        <Label for="fieldStringPC">String Proper Case:</Label>
-        <input  class="fieldString" name="fieldString" id="fieldStringProperCase" type="text" readonly value="${stringProperCase}">
-    </div>
-    <div>
-        <Label for="fieldStringCC">String Capital Case:</Label>
-        <input class="fieldString" name="fieldString" id="fieldStringCapitalCase" type="text" readonly value="${stringCapitalCase}">
-    </div>
-    `;
-
-    const btnEncode = content.querySelector('#btnEncode');
-    const fieldStringEncoded = content.querySelector('#fieldStringEncoded');
-
-    btnEncode.addEventListener('click', () => {
-        const encodedMd5 = md5(stringHash);
-
-        content.querySelector('#fieldStringEncoded').value = encodedMd5;
-        content.querySelector('#fieldStringUpperCase').value = encodedMd5.toUpperCase();
-        content.querySelector('#fieldStringLowerCase').value = encodedMd5.toLowerCase();
-        content.querySelector('#fieldStringCapitalCase').value = toCapitalCase(encodedMd5);
-        content.querySelector('#fieldStringProperCase').value = toProperCase(encodedMd5);
-    });
+    for (let selector of btnEncode) {
+        selector.addEventListener("click", () => {
+            converterString(selector.id);
+            content.querySelector("#string-convertida").value = localString;
+        });
+    }
 
     return content;
-}
+};
